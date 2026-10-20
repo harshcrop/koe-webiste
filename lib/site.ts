@@ -24,10 +24,13 @@ export const site = {
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000",
   ).replace(/\/$/, ""),
-  version: env(process.env.NEXT_PUBLIC_APP_VERSION, "1.0.0"),
-  downloads: {
-    appleSilicon: env(process.env.NEXT_PUBLIC_DOWNLOAD_URL_APPLE_SILICON, "#download"),
-    intel: env(process.env.NEXT_PUBLIC_DOWNLOAD_URL_INTEL, "#download"),
+  version: env(process.env.NEXT_PUBLIC_APP_VERSION, "0.1.0"),
+  download: {
+    // Universal build: one .dmg for Apple silicon and Intel. Served from public/downloads by default.
+    url: env(process.env.NEXT_PUBLIC_DOWNLOAD_URL, "/downloads/Koe-0.1.0-universal.dmg"),
+    fileName: "Koe-0.1.0-universal.dmg",
+    size: "11 MB",
+    checksumUrl: env(process.env.NEXT_PUBLIC_DOWNLOAD_CHECKSUM_URL, "/downloads/Koe-0.1.0-universal.dmg.sha256"),
   },
   links: {
     releaseNotes: process.env.NEXT_PUBLIC_RELEASE_NOTES_URL || "",

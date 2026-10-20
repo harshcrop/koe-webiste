@@ -15,7 +15,8 @@ const jsonLd = [
     softwareVersion: site.version,
     url: site.url,
     image: `${site.url}/opengraph-image`,
-    downloadUrl: site.downloads.appleSilicon.startsWith("http") ? site.downloads.appleSilicon : `${site.url}/#download`,
+    downloadUrl: new URL(site.download.url, site.url).toString(),
+    fileSize: site.download.size,
     featureList: [
       "On-device transcription",
       "Push-to-talk dictation in any app",
@@ -86,7 +87,7 @@ export default function Home() {
               on this machine.
             </p>
             <div className="cta-row">
-              <a href={site.downloads.appleSilicon} className="btn btn-large">
+              <a href={site.download.url} download={site.download.fileName} className="btn btn-large">
                 <ArrowDownToLine size={17} strokeWidth={2} aria-hidden="true" />
                 Download for Mac
               </a>
@@ -288,25 +289,23 @@ export default function Home() {
               <Logo size={88} className="download-logo" />
               <h2 id="download-title">Download {site.name}</h2>
               <p className="download-lead">
-                Pick the build for your Mac. Not sure which one? Apple menu → About This Mac shows your chip.
+                One universal build that runs natively on Apple silicon and Intel Macs.
               </p>
               <div className="download-buttons">
-                <a href={site.downloads.appleSilicon} className="dl dl-primary">
+                <a href={site.download.url} download={site.download.fileName} className="dl dl-primary">
                   <span className="dl-name">
                     <ArrowDownToLine size={16} strokeWidth={2} aria-hidden="true" />
-                    Apple silicon
+                    Download for Mac
                   </span>
-                  <span className="dl-meta">M1 and later · .dmg</span>
-                </a>
-                <a href={site.downloads.intel} className="dl dl-secondary">
-                  <span className="dl-name">
-                    <ArrowDownToLine size={16} strokeWidth={2} aria-hidden="true" />
-                    Intel
-                  </span>
-                  <span className="dl-meta">2018 and later · .dmg</span>
+                  <span className="dl-meta">Universal · Apple silicon &amp; Intel · .dmg · {site.download.size}</span>
                 </a>
               </div>
-              <span className="mono-note download-note">v{site.version} · macOS 14 Sonoma or later</span>
+              <span className="mono-note download-note">
+                v{site.version} · macOS 14 Sonoma or later ·{" "}
+                <a href={site.download.checksumUrl} className="checksum">
+                  SHA-256
+                </a>
+              </span>
               <ol className="install">
                 <li>
                   <span>1 · Install</span>Open the .dmg and drag {site.name} into Applications.

@@ -948,6 +948,14 @@ ul {
   color: rgba(255, 247, 240, 0.6);
   margin-bottom: 48px;
 }
+.checksum {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.checksum:hover {
+  color: #fff;
+}
 .install {
   width: 100%;
   max-width: 860px;
